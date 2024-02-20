@@ -149,6 +149,10 @@ program
     '--fork <username/electron>',
     `Add a remote fork of Electron with the name 'fork'. This should take the format 'username/electron'`,
   )
+  .option(
+    '--origin <git_uri>',
+    `The git repository to use as the origin for Electron. Can be an https or git URI.'`
+  )
   .action((name, options) => {
     if (options.import && !options.out) {
       // e.g. the default out dir for a testing build is 'Testing'
