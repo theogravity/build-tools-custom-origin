@@ -49,6 +49,10 @@ function createConfig(options) {
     }),
   };
 
+  if (options.origin) {
+    electron.origin = options.origin
+  }
+
   return {
     $schema: URI.file(path.resolve(__dirname, '..', 'evm-config.schema.json')).toString(),
     goma: 'none',

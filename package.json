@@ -1,11 +1,10 @@
 {
-  "name": "build-tools",
+  "name": "build-tools-custom-origin",
   "version": "0.2.0",
   "engines": {
     "node": ">= 14.0.0"
   },
   "main": "null",
-  "private": true,
   "scripts": {
     "lint:markdown": "electron-markdownlint \"**/*.md\"",
     "lint:js": "prettier --check \"src/**/*.js\" \"tests/*.js\" \"src/e\"",
@@ -14,7 +13,7 @@
     "test": "nyc --reporter=lcov --reporter=text-summary jest --config=jest.fast.json -i",
     "test:all": "nyc --reporter=lcov --reporter=text-summary jest --config=jest.slow.json -i"
   },
-  "repository": "https://github.com/electron/build-tools",
+  "repository": "https://github.com/theogravity/build-tools-custom-origin",
   "author": "Electron Authors",
   "license": "MIT",
   "dependencies": {

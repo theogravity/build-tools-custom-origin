@@ -8,3 +8,4 @@ third_party
 .disable-auto-updates
 /*.yml
 generated.env.sh
+.idea/

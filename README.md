@@ -2,6 +2,14 @@
 
 This repository contains helper/wrapper scripts to make building Electron easier.
 
+## Fork notice
+
+This is a fork of the original [`build-tools`](https://github.com/electron/build-tools) repository, with the following changes:
+
+- An `origin` option was added to override the default `electron` remote URL for `e init`.
+  * When this option is used, the `useHttps` option is ignored, since you would provide the full URI to `origin` (eg the ssh or https URI).
+  * You should not need to use the `fork` option, as the `origin` option should be sufficient.
+
 ## Installation
 
 A handful of prerequisites, such as git, python, and npm, are
