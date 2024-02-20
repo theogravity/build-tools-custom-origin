@@ -76,7 +76,7 @@ function createConfig(options) {
 }
 
 function runGClientConfig(config) {
-  const { root } = config;
+  const { root, remotes } = config;
   depot.ensure();
   const exec = 'gclient';
   const args = [
@@ -84,7 +84,7 @@ function runGClientConfig(config) {
     '--name',
     'src/electron',
     '--unmanaged',
-    options.origin ? options.origin : 'https://github.com/electron/electron',
+    remotes.electron.origin,
   ];
   const opts = {
     cwd: root,
