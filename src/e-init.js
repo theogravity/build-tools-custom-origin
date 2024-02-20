@@ -53,7 +53,7 @@ function createConfig(options) {
     electron.origin = options.origin
   }
 
-  return {
+  const config = {
     $schema: URI.file(path.resolve(__dirname, '..', 'evm-config.schema.json')).toString(),
     goma: 'none',
     reclient: options.reclient,
@@ -68,15 +68,20 @@ function createConfig(options) {
     preserveXcode: 5,
     env: {
       CHROMIUM_BUILDTOOLS_PATH: path.resolve(root, 'src', 'buildtools'),
-      GIT_CACHE_PATH: process.env.GIT_CACHE_PATH
-        ? resolvePath(process.env.GIT_CACHE_PATH)
-        : path.resolve(homedir, '.git_cache'),
     },
   };
+
+  if (!options.disableGitCache) {
+    config.env.GIT_CACHE_PATH = process.env.GIT_CACHE_PATH
+      ? resolvePath(process.env.GIT_CACHE_PATH)
+      : path.resolve(homedir, '.git_cache');
+  }
+
+  return config
 }
 
 function runGClientConfig(config) {
-  const { root, remotes } = config;
+  const { root, remotes, env } = config;
   depot.ensure();
   const exec = 'gclient';
   const args = [
@@ -84,8 +89,16 @@ function runGClientConfig(config) {
     '--name',
     'src/electron',
     '--unmanaged',
-    remotes.electron.origin,
   ];
+
+  if (!env.GIT_CACHE_PATH) {
+    args.push('--cache-dir');
+    args.push('None');
+  }
+
+  args.push(remotes.electron.origin);
+
+
   const opts = {
     cwd: root,
     shell: true,
@@ -132,6 +145,7 @@ program
   .option('--lsan', `When building, enable clang's leak sanitizer`, false)
   .addOption(archOption)
   .option('--bootstrap', 'Run `e sync` and `e build` after creating the build config.')
+  .option('--disable-git-cache', 'Disables the git cache for this build config', false)
   .addOption(
     new Option(
       '--reclient <target>',
