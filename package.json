@@ -5,6 +5,7 @@
     "node": ">= 14.0.0"
   },
   "main": "null",
+  "private": true,
   "scripts": {
     "lint:markdown": "electron-markdownlint \"**/*.md\"",
     "lint:js": "prettier --check \"src/**/*.js\" \"tests/*.js\" \"src/e\"",
