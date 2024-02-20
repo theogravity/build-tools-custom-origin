@@ -84,7 +84,7 @@ function runGClientConfig(config) {
     '--name',
     'src/electron',
     '--unmanaged',
-    'https://github.com/electron/electron',
+    options.origin ? options.origin : 'https://github.com/electron/electron',
   ];
   const opts = {
     cwd: root,
